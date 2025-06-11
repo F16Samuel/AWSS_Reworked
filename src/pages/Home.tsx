@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Upload, Play, Image as ImageIcon } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import axios from "axios";
 
 const Home = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -52,7 +53,7 @@ const Home = () => {
     }
   };
 
-  const handleRunModel = () => {
+  const handleRunModel = async () => {
     if (!selectedFile) {
       toast({
         title: "No image selected",
@@ -68,7 +69,35 @@ const Home = () => {
     });
     
     // Here you would connect to your backend
-    console.log("Running model on:", selectedFile.name);
+    try {
+      const formData = new FormData();
+      formData.append("image", selectedFile);
+
+      toast({
+        title: "Processing...",
+        description: "Uploading and classifying the image.",
+      });
+
+      const response = await axios.post("http://localhost:5000/api/classify", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      const { category, confidence } = response.data;
+
+      toast({
+        title: `Classification: ${category}`,
+        description: `Confidence: ${(confidence * 100).toFixed(2)}%`,
+      });
+    } catch (error: any) {
+      toast({
+        title: "Classification Failed",
+        description: error?.response?.data?.message || "Server error",
+        variant: "destructive",
+      });
+      console.error("Error classifying image:", error);
+    }
   };
 
   return (
