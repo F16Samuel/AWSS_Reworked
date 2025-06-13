@@ -25,20 +25,17 @@ const waitForFile = async (filePath) => {
   throw new Error("File not ready in time");
 };
 
-const FASTAPI_HOST = process.env.FASTAPI_URL || "http://fastapi:8000";
-
-// Function to classify the image using FastAPI
+// Function to send image to ML model
 const classifyImage = async (filePath) => {
   const form = new FormData();
   form.append("file", fs.createReadStream(filePath));
 
-  const response = await axios.post(`${FASTAPI_HOST}/classify/`, form, {
+  const response = await axios.post("http://localhost:8000/classify/", form, {
     headers: form.getHeaders(),
   });
 
-  return response.data;
+  return response.data; // { category: "...", confidence: ... }
 };
-
 
 // POST route for classification
 router.post("/", upload.single("file"), async (req, res) => {
