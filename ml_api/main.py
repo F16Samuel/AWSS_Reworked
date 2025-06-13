@@ -13,13 +13,14 @@ load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
 fastserver = os.getenv("FAST_SERVER")
 nodeserver = os.getenv("NODE_SERVER")
 viteserver = os.getenv("VITE_SERVER")
+mongoserver = os.getenv("MONGO_URI")
 
 app = FastAPI()
 
 # CORS (optional if needed)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["FASTSERVER","NODESERVER","VITESERVER"],
+    allow_origins=["FAST_SERVER","NODE_SERVER","VITE_SERVER", "MONGO_URI"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
