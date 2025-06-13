@@ -20,7 +20,7 @@ app = FastAPI()
 # CORS (optional if needed)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["FAST_SERVER","NODE_SERVER","VITE_SERVER", "MONGO_URI"],
+    allow_origins=[url for url in [fastserver, nodeserver, viteserver, mongoserver] if url],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
