@@ -7,15 +7,25 @@ import imageRoutes from './routes/imagesearch.js';
 
 dotenv.config();
 
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const app = express();
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/awss"; // replace with your actual URI
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 app.use(cors({
   origin: 'http://localhost:8080', // or your frontend URL
   credentials: true
 }));
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
 
 // Serve frontend static files
 const frontendPath = path.resolve(__dirname, '../frontend/dist');
