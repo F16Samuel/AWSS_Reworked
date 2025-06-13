@@ -2,8 +2,7 @@ from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import shutil
-import uvicorn
-from ModelMain import classify_image  # Replace with your model loading + prediction
+import uvicorn 
 from dotenv import load_dotenv
 import os
 
@@ -18,6 +17,8 @@ mongoserver = os.getenv("MONGO_URI")
 # Download models on startup
 from models.downloadModels import download_all_models
 download_all_models()
+
+from ModelMain import classify_image
 
 app = FastAPI()
 
