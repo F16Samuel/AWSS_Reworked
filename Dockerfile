@@ -16,13 +16,22 @@ COPY index.html ./
 # Install and build
 RUN npm install && npm run build
 
-# Stage 2: Setup full backend with ML API and serve frontend
+# --------------------------------------
+# 🚨 Stage 2: Setup full backend with ML API and serve frontend
 FROM python:3.10-slim
 
-# Install Node.js and PM2 for Express backend
-RUN apt-get update && apt-get install -y curl gnupg && \
-    curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
-    apt-get install -y nodejs && npm install -g pm2 && apt-get clean
+# 🚫 PROBLEM AREA: Missing `procps` package for PM2 to use `ps`
+# Without `ps`, PM2 can't track or kill child processes correctly
+
+# ✅ FIXED: Add `procps` to ensure PM2 can function properly
+RUN apt-get update && apt-get install -y \
+    curl \
+    gnupg \
+    procps \
+ && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+ && apt-get install -y nodejs \
+ && npm install -g pm2 \
+ && apt-get clean
 
 # Create app directory
 WORKDIR /app
