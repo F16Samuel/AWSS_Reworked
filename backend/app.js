@@ -3,6 +3,7 @@ import cors from 'cors';
 import classifyRoutes from "./routes/classify.js"; 
 import mongoose from 'mongoose';
 import dotenv from "dotenv";
+import imageRoutes from './routes/imagesearch.js';
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(cors({
 
 app.use(express.json());
 app.use("/uploads", express.static("uploads")); // Serve uploaded images
+app.use('/api/images', imageRoutes);
 app.use("/api/classify", classifyRoutes);
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB connected"))
