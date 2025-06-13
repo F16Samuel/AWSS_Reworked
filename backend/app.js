@@ -9,11 +9,22 @@ dotenv.config();
 
 const app = express();
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/awss"; // replace with your actual URI
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(cors({
   origin: 'http://localhost:8080', // or your frontend URL
   credentials: true
 }));
+
+// Serve frontend static files
+const frontendPath = path.resolve(__dirname, '../frontend/dist');
+app.use(express.static(frontendPath));
+
+// Catch-all to serve React's index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(frontendPath, 'index.html'));
+});
 
 app.use(express.json());
 app.use("/uploads", express.static("uploads")); // Serve uploaded images
