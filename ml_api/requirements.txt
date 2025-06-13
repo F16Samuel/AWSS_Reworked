@@ -8,7 +8,7 @@ fastapi==0.115.2
 uvicorn==0.34.3
 
 # Image preprocessing & evaluation
-scikit-learn==1.4.1
+scikit-learn==1.4.2
 numpy==1.26.4
 pillow==10.3.0
 
