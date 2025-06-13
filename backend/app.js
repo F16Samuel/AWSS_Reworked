@@ -7,10 +7,10 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/awss"; // replace with your actual URI
+const MONGO_URI = process.env.MONGO_URI; // your mongo URI
 
 app.use(cors({
-  origin: 'http://localhost:8080', // or your frontend URL
+  origin: `${process.env.VITE_SERVER}`, // or your frontend URL
   credentials: true
 }));
 

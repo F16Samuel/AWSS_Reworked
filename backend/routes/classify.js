@@ -7,30 +7,17 @@ import upload from "../middleware/upload.js";
 import Classification from "../models/Classification.js";
 import path from "path";
 import { Readable } from "stream";
+import dotenv from 'dotenv';
+dotenv.config();
 
 const router = express.Router();
-
-// Optional helper (currently unused)
-const waitForFile = async (filePath) => {
-  const maxTries = 10;
-  const delay = 100; // ms
-  for (let i = 0; i < maxTries; i++) {
-    try {
-      await fs.promises.access(filePath);
-      return;
-    } catch {
-      await new Promise((r) => setTimeout(r, delay));
-    }
-  }
-  throw new Error("File not ready in time");
-};
 
 // Function to send image to ML model
 const classifyImage = async (filePath) => {
   const form = new FormData();
   form.append("file", fs.createReadStream(filePath));
 
-  const response = await axios.post("http://localhost:8000/classify/", form, {
+  const response = await axios.post(`${process.env.FAST_SERVER}/classify/`, form, {
     headers: form.getHeaders(),
   });
 

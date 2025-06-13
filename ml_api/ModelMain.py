@@ -1,5 +1,3 @@
-# Hybrid logic — PyTorch for Layer 1, Keras for Layer 2 and 3
-
 import random
 import numpy as np
 import torch
@@ -11,7 +9,6 @@ from tensorflow.keras.models import load_model
 import torchvision.models as models
 
 # Load PyTorch model
-
 layer1 = models.resnet50(pretrained=False)
 layer1.fc = nn.Linear(2048, 2)
 layer1.load_state_dict(torch.load('models/layer1cnn_aanan.pth', map_location=torch.device('cpu')))

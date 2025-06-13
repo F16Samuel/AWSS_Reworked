@@ -147,3 +147,9 @@ ml_api/temp
 move.ps1
 docker-compose.yml
 /backend/uploads
+
+# ml training scripts
+ml_api/train_layer1.py
+ml_api/train_layer2.py
+ml_api/train_layer3.py
+ml_api/__pycache__

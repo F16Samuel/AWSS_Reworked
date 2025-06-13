@@ -43,7 +43,7 @@ const ImageUploader: React.FC = () => {
         <div className="mt-4 space-y-2">
           <p><strong>Category:</strong> {result.category}</p>
           <img
-            src={`http://localhost:5000${result.imageUrl}`}
+            src={`${process.env.NODE_SERVER}${result.imageUrl}`}
             alt="Uploaded"
             className="w-48 rounded shadow"
           />

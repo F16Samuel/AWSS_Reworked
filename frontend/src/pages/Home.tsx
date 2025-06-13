@@ -6,6 +6,9 @@ import { Upload, Play, Image as ImageIcon } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import axios from "axios";
 
+const backendUrl = import.meta.env.VITE_NODE_SERVER;
+console.log("Backend URL:", backendUrl); // Ensure this is set correctly in your .env file
+
 const Home = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -78,7 +81,7 @@ const Home = () => {
         description: "Uploading and classifying the image.",
       });
 
-      const response = await axios.post("http://localhost:5000/api/classify", formData, {
+      const response = await axios.post(`${import.meta.env.VITE_NODE_SERVER}/api/classify`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
