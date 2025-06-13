@@ -71,7 +71,7 @@ const Home = () => {
     // Here you would connect to your backend
     try {
       const formData = new FormData();
-      formData.append("image", selectedFile);
+      formData.append("file", selectedFile);
 
       toast({
         title: "Processing...",

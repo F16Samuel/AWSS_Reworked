@@ -131,3 +131,13 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# datasets
+ml_api/datasets
+
+# models
+ml_api/models/scraped
+ml_api/models/layer1cnn_aanan.pth
+ml_api/models/layer2bio_cnn.keras
+ml_api/models/layer2non_cnn.keras
+ml_api/models/layer3_cnn.keras
