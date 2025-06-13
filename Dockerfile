@@ -1,9 +1,7 @@
 # Stage 1: Build frontend
 FROM node:18 as frontend-builder
 WORKDIR /app
-COPY ./frontend ./frontend
-WORKDIR /app
-RUN npm install && npm run build
+RUN npm install && npm run dev
 
 # Stage 2: Main container
 FROM python:3.10-slim
@@ -29,7 +27,7 @@ WORKDIR /app/ml_api
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy frontend build output into a directory inside the container
-COPY --from=frontend-builder /app/frontend/dist /app/frontend/dist
+COPY --from=frontend-builder /app/dist /app/dist
 
 # Install PM2
 RUN npm install pm2 -g
