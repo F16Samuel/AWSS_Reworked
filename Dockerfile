@@ -2,7 +2,7 @@
 FROM node:18 as frontend-builder
 WORKDIR /app
 COPY ./frontend ./frontend
-WORKDIR /app/frontend
+WORKDIR /app
 RUN npm install && npm run build
 
 # Stage 2: Main container
