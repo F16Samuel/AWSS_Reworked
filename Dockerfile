@@ -1,17 +1,29 @@
-# Stage 1: Build frontend
-FROM node:18 as frontend-builder
+# Stage 1: Build React frontend
+FROM node:18 AS frontend-builder
+
 WORKDIR /app
+
+# Copy only necessary frontend files first (for better caching)
+COPY package*.json ./
+COPY tsconfig*.json ./
+COPY vite.config.* ./
+COPY postcss.config.js ./
+COPY tailwind.config.ts ./
+COPY public ./public
+COPY src ./src
+
+# Install and build
 RUN npm install && npm run build
 
-# Stage 2: Main container
+# Stage 2: Setup full backend with ML API and serve frontend
 FROM python:3.10-slim
 
-# Install Node.js
-RUN apt-get update && apt-get install -y curl && \
+# Install Node.js and PM2 for Express backend
+RUN apt-get update && apt-get install -y curl gnupg && \
     curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
-    apt-get install -y nodejs && apt-get clean
+    apt-get install -y nodejs && npm install -g pm2 && apt-get clean
 
-# Set working directory
+# Create app directory
 WORKDIR /app
 
 # Copy backend and ML API
@@ -22,19 +34,19 @@ COPY ./ml_api ./ml_api
 WORKDIR /app/backend
 RUN npm install
 
-# Install Python dependencies
+# Install ML API Python dependencies
 WORKDIR /app/ml_api
+COPY ./ml_api/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy frontend build output into a directory inside the container
-COPY --from=frontend-builder /app/dist /app/dist
-
-# Install PM2
-RUN npm install pm2 -g
-
-# Copy ecosystem config for PM2
+# Copy frontend build from previous stage
 WORKDIR /app
+COPY --from=frontend-builder /app/dist ./frontend/dist
+
+# PM2 config file
 COPY ecosystem.config.js .
 
+# Expose backend port
 EXPOSE 5000
+
 CMD ["pm2-runtime", "ecosystem.config.js"]
