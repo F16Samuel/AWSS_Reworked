@@ -48,6 +48,6 @@ COPY --from=frontend-builder /app/dist ./frontend/dist
 COPY ecosystem.config.js .
 
 # Expose backend port
-EXPOSE 5000
+EXPOSE 10000
 
 CMD ["pm2-runtime", "ecosystem.config.js"]
