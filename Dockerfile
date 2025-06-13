@@ -1,7 +1,7 @@
 # Stage 1: Build frontend
 FROM node:18 as frontend-builder
 WORKDIR /app
-RUN npm install && npm run dev
+RUN npm install && npm run build
 
 # Stage 2: Main container
 FROM python:3.10-slim
