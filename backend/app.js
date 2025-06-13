@@ -9,6 +9,7 @@ dotenv.config();
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import path from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -17,7 +18,7 @@ const app = express();
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/awss"; // replace with your actual URI
 
 app.use(cors({
-  origin: 'http://localhost:8080', // or your frontend URL
+  origin: process.env.FRONTEND_ORIGIN || 'http://localhost:8080', // or your frontend URL
   credentials: true
 }));
 
