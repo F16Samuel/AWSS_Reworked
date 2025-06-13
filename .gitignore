@@ -144,3 +144,5 @@ ml_api/models/layer3_cnn.keras
 
 #temp
 ml_api/temp
+
+docker-compose.yml

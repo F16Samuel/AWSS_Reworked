@@ -11,7 +11,8 @@ const app = express();
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/awss"; // replace with your actual URI
 
 app.use(cors({
-  origin: 'http://localhost:8080', // or your frontend URL
+  origin: "https://awss-reworked.vercel.app", // Allow your frontend domain
+  methods: ["GET", "POST"],
   credentials: true
 }));
 
