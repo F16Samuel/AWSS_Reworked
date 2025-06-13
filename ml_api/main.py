@@ -15,6 +15,10 @@ nodeserver = os.getenv("NODE_SERVER")
 viteserver = os.getenv("VITE_SERVER")
 mongoserver = os.getenv("MONGO_URI")
 
+# Download models on startup
+from models.downloadModels import download_all_models
+download_all_models()
+
 app = FastAPI()
 
 # CORS (optional if needed)
