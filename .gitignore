@@ -144,5 +144,6 @@ ml_api/models/layer3_cnn.keras
 
 #temp
 ml_api/temp
-
+move.ps1
 docker-compose.yml
+/backend/uploads
