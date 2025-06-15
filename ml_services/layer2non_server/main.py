@@ -1,6 +1,7 @@
 # ml_services/layer2bio_server/main.py
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+import tensorflow as tf
 from tensorflow.keras.models import load_model
 import numpy as np
 from PIL import Image

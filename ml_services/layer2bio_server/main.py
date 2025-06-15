@@ -2,6 +2,7 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from tensorflow.keras.models import load_model
+import tensorflow as tf
 import numpy as np
 from PIL import Image
 from io import BytesIO
