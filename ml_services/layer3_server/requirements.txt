@@ -1,20 +1,18 @@
 # Core ML
-tensorflow==2.15.0
-torch==2.3.1
-torchvision==0.18.1
+tensorflow
 
 # FastAPI + Server
-fastapi==0.115.2
-uvicorn==0.34.3
+fastapi
+uvicorn
 
 # Image preprocessing & evaluation
-scikit-learn==1.4.2
-numpy==1.26.4
-pillow==10.3.0
+scikit-learn
+numpy
+pillow
 
-python-multipart==0.0.9
+python-multipart
 
-aiofiles==23.2.1
-starlette>=0.37.2,<0.41.0
-gdown==4.7.0
-python-dotenv==1.0.0
+aiofiles
+starlette
+gdown
+python-dotenv
