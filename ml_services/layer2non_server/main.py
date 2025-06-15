@@ -19,9 +19,30 @@ mongoserver = os.getenv("MONGO_URI")
 from model.reconstruct_models import reassemble_chunks
 reassemble_chunks()
 
+# Auto-convert .keras model to .tflite if not exists
+keras_model_path = "model/layer2non_cnn.keras"
+tflite_model_path = "model/layer2non_cnn.tflite"
+
+if not os.path.exists(tflite_model_path):
+    print("⚙️ Converting .keras to .tflite ...")
+    model = tf.keras.models.load_model(keras_model_path)
+    converter = tf.lite.TFLiteConverter.from_keras_model(model)
+    converter.optimizations = [tf.lite.Optimize.DEFAULT]
+    tflite_model = converter.convert()
+    with open(tflite_model_path, "wb") as f:
+        f.write(tflite_model)
+    print("✅ Model converted and saved as .tflite")
+
+# Load the TFLite model
+interpreter = tf.lite.Interpreter(model_path=tflite_model_path)
+interpreter.allocate_tensors()
+
+input_details = interpreter.get_input_details()
+output_details = interpreter.get_output_details()
+
 app = FastAPI()
 
-model = load_model("model/layer2non_cnn.keras")
+model = load_model("model/layer2non_cnn.tflite")
 
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
