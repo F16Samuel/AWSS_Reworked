@@ -1,6 +1,8 @@
 
 # 🗂️ Automatic Waste Segregation System (AWSS)
 
+🔗 [**View Project**](https://awss-reworked.vercel.app)
+
 ## 📄 Project Description
 
 AWSS is an AI-powered waste classification platform designed to automate the segregation of household or industrial waste into biodegradable and non-biodegradable categories, followed by deeper classification into recyclable types like paper, plastic, metal, and glass. This is accomplished through a three-layer deep learning pipeline hosted on scalable microservices.
