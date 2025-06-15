@@ -1,6 +1,6 @@
 import axios from 'axios';
-
-const API_BASE_URL = 'http://localhost:5000/api';
+const backendUrl = import.meta.env.VITE_NODE_SERVER;
+const API_BASE_URL = `${backendUrl}/api`;
 
 export interface UploadResult {
   message: string;

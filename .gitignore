@@ -154,4 +154,20 @@ ml_api/train_layer2.py
 ml_api/train_layer3.py
 ml_api/__pycache__
 ml_api/models/__pycache__
-awss-fast-backend
+start-awss-dev.ps1
+
+# ml servers pycache
+ml_services/layer1_server/__pycache__
+ml_services/layer2bio_server/__pycache__
+ml_services/layer2non_server/__pycache__
+ml_services/layer3_server/__pycache__
+ml_services/layer1_server/model/__pycache__
+ml_services/layer2bio_server/model/__pycache__
+ml_services/layer2non_server/model/__pycache__
+ml_services/layer3_server/model/__pycache__
+ml_services/layer2bio_server/model/layer2bio_cnn.keras
+ml_services/layer2non_server/model/layer2non_cnn.keras
+
+# Redundant files
+ml_api
+Dockerfile
