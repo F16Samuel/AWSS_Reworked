@@ -9,6 +9,20 @@ dotenv.config();
 const app = express();
 const MONGO_URI = process.env.MONGO_URI; // your mongo URI
 
+// CORS middleware
+app.use(cors());
+app.use(express.json());
+
+// ✅ Health check route (root)
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Node.js backend is running." });
+});
+
+// ✅ Optional: separate API check route
+app.get("/api", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
+
 app.use(cors({
   origin: `${process.env.VITE_SERVER}`, // or your frontend URL
   credentials: true

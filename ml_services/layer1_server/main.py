@@ -49,3 +49,13 @@ async def predict(file: UploadFile = File(...)):
         prediction = torch.argmax(output, dim=1).item()
         print("RESULT TYPE:", type(prediction), "VALUE:", prediction)
     return {"layer1_result": int(prediction)}
+
+# ✅ Health check route
+@app.get("/")
+def read_root():
+    return {"message": "Backend is up and running."}
+
+# Optional: if you want to use `/api` or `/healthz`
+@app.get("/api")
+def health_check():
+    return {"status": "ok"}

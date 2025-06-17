@@ -34,3 +34,13 @@ async def predict(file: UploadFile = File(...)):
     pred = np.argmax(model.predict(arr))
     print("RESULT TYPE:", type(pred), "VALUE:", pred)
     return {"layer3_result": int(pred)}
+
+# ✅ Health check route
+@app.get("/")
+def read_root():
+    return {"message": "Backend is up and running."}
+
+# Optional: if you want to use `/api` or `/healthz`
+@app.get("/api")
+def health_check():
+    return {"status": "ok"}
